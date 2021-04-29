@@ -3,14 +3,15 @@ from tkinter import ttk
 
 app = Tk()
 
+units = []
+
+with open("unit.txt", "r") as f:
+    units = [item.strip() for item in f.readlines()]
+
 
 app.minsize(485, 300)
 app.title("Unit Converter")
 
-container = ttk.Frame(app)
-
-frame = ttk.Frame(container, borderwidth=5,
-                  relief="ridge", width=200, height=100)
 
 #### First Variable ####
 
@@ -26,8 +27,10 @@ first_field = ttk.Entry(app, textvariable=first_var,
 
 first_box = StringVar()
 first_box_field = ttk.Combobox(
-    app, textvariable=first_box, width=5).grid(column=1, row=3)
-first_box_field['values'] = ("mm", "cm", "km", "m")
+    app, textvariable=first_box, width=5)
+first_box_field.grid(column=1, row=3)
+first_box_field['values'] = units
+first_box_field.current(0)
 
 
 #### Second Variable ####
@@ -41,10 +44,6 @@ first_field = ttk.Entry(app, textvariable=second_var,
                         width=20).grid(column=3, row=3)
 
 
-# Label "TO"
-ttk.Label(app, text="to").grid(column=2, row=2)
-
-
 # Output Field
 ttk.Label(app, text="Result", width=0).grid(column=2, row=4)
 output_var = StringVar()
@@ -55,8 +54,14 @@ output_field = ttk.Entry(app, state="readonly", textvariable=output_var, width=2
 
 second_box = StringVar()
 second_box_field = ttk.Combobox(
-    app, textvariable=second_box, width=5).grid(column=4, row=3)
+    app, textvariable=second_box, width=5)
+second_box_field.grid(column=4, row=3)
+second_box_field['values'] = units
+second_box_field.current(0)
 
+
+# Label "TO"
+ttk.Label(app, text="to").grid(column=2, row=2)
 
 # Buttons
 
