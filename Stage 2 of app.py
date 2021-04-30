@@ -38,7 +38,7 @@ output_var = IntVar()
 second_box = StringVar()
 
 # Adding Label
-ttk.Label(app, text="First unit").grid(column=0, row=1)
+ttk.Label(app, text="First unit").grid(column=1, row=1)
 
 ttk.Label(app, text="Input").grid(column=0, row=2)
 
