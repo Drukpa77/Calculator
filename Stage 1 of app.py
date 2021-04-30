@@ -1,4 +1,4 @@
-# Python Program for simple Unit Converter
+# Stage 1 of unit converter
 
 num1 = input('Enter the value: ')
 print("list of units:cm, m, km, mm")
