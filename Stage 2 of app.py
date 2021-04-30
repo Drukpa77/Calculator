@@ -1,86 +1,86 @@
 from tkinter import *
 from tkinter import ttk
-window = Tk()
-window.title("Basic Converter")
 
-window.geometry("500x300+500+350")
+app = Tk()
+app.title("Unit Converter")
 
-#globally declare measurement variables
-measurement1 = ""
-measurement2 = ""
+unit1=""
+unit2=""
 
-def convert_SI(val, unit_in, unit_out):     #based on unitconverters.net
-    SI = {'Meter':1, 'Kilometer':1000, 'Centimeter':0.01, 'Millimeter':0.001,
-          'Micrometer':0.000001, 'Mile':1609.35, 'Yard':0.9144, 'Foot':0.3048,
-          'Inch':0.0254}
-    return val*SI[unit_in]/SI[unit_out]
+def convert(val, unit_in, unit_out):
+    unit = {'m':1, 'km':1000, 'cm':0.01, "mm":0.001}
+    return first_var*unit[first_box]/unit[second_box]
 
-def helpsection():
-    pass    #put helpful info text here (e.g. no entering in right entry box else error)
+def input():
+    global unit1
+    unit1 = first_box.get()
 
-def selectedInput():
-    global measurement1
-    measurement1 = listbox.get(listbox.curselection())#whatever is currently selected
-
-def selectedOutput():
-    global measurement2
-    measurement2 = listbox1.get(listbox1.curselection()) #whatever is currently selected
+def output():
+    global unit2
+    unit2 = second_box.get()
 
 def converter():
     try:
-        global measurement1, measurement2
-        result.set(str(convert_SI(float(inputEntry.get()), measurement1, measurement2)))
+        global unit1, unit2
+        output_var.set(str(convert(float(first_filed.get()), unit1, unit2)))
 
     except:
-        result.set("Error")
-
-title = Label(window, text="Basic Converter", font="Calibri 16")
-title.grid(columnspan=3)
-result = StringVar()    #initalize dispalyed output variable
-#create a top-level menu
-filemenu = Menu(window)
-filemenu.add_command(label='Help', command=helpsection)
-window.config(menu=filemenu)    #displays menu
-#input and output entry fields
-inputEntry = Entry(window)
-inputEntry.grid(row=1, column=0)
-arrow = Label(window, text="--->", font="Calibri 20").grid(row=1, column=1)
-outputEntry = Entry(window, textvariable=result).grid(row=1, column=2)
-
-convertButton = Button(window, text='Convert!', command=converter).grid(row=2, column=1)
-
-#if nonetype error, because .grid needs to be called on their own line since it always returns None
-first_box = tkk.Combobox(window)   #left scrollbar
-first_box.grid(row=2, column=0, sticky = NE + SE)
-listbox = Listbox(window, exportselection=False)   #left listbox
-#exportselection option in order to select 2 different listbox at same time
-listbox.grid(row=2, column=0)
-
-measurement_list = ['Meter', 'Kilometer', 'Centimeter', 'Millimeter',
-                    'Micrometer', 'Mile', 'Yard', 'Foot', 'Inch']
-for measurement in measurement_list:
-    listbox.insert(END, measurement)
-listbox.bind("<<ListboxSelect>>", lambda x: selectedInput())   #this instead of command= option
-# attach listbox to scrollbar
-listbox.config(yscrollcommand=scrollbar.set)
-first_box.config(command=listbox.yview)
+            output_var.set("Error")
 
 
-second_box = ttk.Combobox(window)   #right scrollbar
-secondt_box.grid(row=2, column=2, sticky = NE + SE)   #add sticky if scrollbar not showing
-listbox1 = Listbox(window, exportselection=False)   #right listbox
-listbox1.grid(row=2, column=2)
+#### Variable ####
+first_var = IntVar()
+first_box = StringVar()
+output_var = IntVar()
+second_box = StringVar()
 
-for measurement in measurement_list:
-    listbox1.insert(END, measurement)
-listbox1.bind("<<ListboxSelect>>", lambda x: selectedOutput())
-listbox1.config(yscrollcommand=scrollbar1.set)
-second_box.config(command=listbox1.yview)
+# Adding Label
+ttk.Label(app, text="First unit").grid(column=0, row=1)
 
-#configure grid layout to adjust whenever window dimensions change
+ttk.Label(app, text="Input").grid(column=0, row=2)
+
+ttk.Label(app, text="Second Unit").grid(column=3, row=1)
+
+ttk.Label(app, text="Result", width=0).grid(column=2, row=4)
+
+ttk.Label(app, text="to").grid(column=2, row=2)
+
+# Adding Entries
+
+first_field = ttk.Entry(app, textvariable=first_var,
+                        width=10).grid(column=0, row=3)
+
+output_field = ttk.Entry(app, state="readonly", textvariable=output_var, width=20).grid(
+    column=2, row=5)
+
+#######list
+unit = ['m', 'km', 'mm', 'cm']
+
+# Adding unit Combo box
+first_box_field = ttk.Combobox(
+    app, textvariable=first_box, width=5)
+first_box_field.grid(column=1, row=3, padx=10, pady=10)
+first_box_field['value'] = unit
+first_box_field.current(0)
+
+
+second_box_field = ttk.Combobox(
+    app, textvariable=second_box, width=5)
+second_box_field.grid(column=3, row=3, padx=10, pady=10)
+second_box_field['value'] = unit
+second_box_field.current(0)
+
+
+# Buttons #
+
+exit_btn = ttk.Button(app, text="Exit").grid(column=1, row=7, padx=10, pady=10)
+
+convert_btn = ttk.Button(app, text="Convert", command=converter).grid(column=2, row=7, padx=10, pady=10)
+
+convert_btn = ttk.Button(app, text="Reset").grid(column=3, row=7, padx=10, pady=10)
+
 for i in range(3):
-    window.grid_rowconfigure(i, weight=1)
-    window.grid_columnconfigure(i, weight=1)
+    app.grid_rowconfigure(i, weight=1)
+    app.grid_columnconfigure(i, weight=1)
 
-
-window.mainloop()
+app.mainloop()
