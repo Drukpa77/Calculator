@@ -14,6 +14,9 @@ app.title("Unit Converter")
 unit1=[]
 unit2=[]
 
+def close():
+    app.destory()
+    
 def convert(val, unit_in, unit_out):
     unit = {'m':1, 'km':1000, 'cm':0.01, "mm":0.001}
     return first_var*unit[first_box]/unit[second_box]
@@ -77,11 +80,10 @@ second_box_field.current(0)
 
 # Buttons #
 
-exit_btn = ttk.Button(app, text="Exit").grid(column=1, row=7, padx=10, pady=10)
+exit_btn = ttk.Button(app, text="Exit", command=close).grid(column=1, row=7, padx=10, pady=10)
 
 convert_btn = ttk.Button(app, text="Convert", command=converter).grid(column=2, row=7, padx=10, pady=10)
 
-convert_btn = ttk.Button(app, text="Reset").grid(column=3, row=7, padx=10, pady=10)
 
 for i in range(3):
     app.grid_rowconfigure(i, weight=1)
