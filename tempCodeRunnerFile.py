@@ -1,1 +1,1 @@
-value
+str_val
