@@ -2,8 +2,8 @@
 
 num1 = input('Enter the value: ')
 print("list of units:cm, m, km, mm")
-unit1 = input('Which unit do you want it converted from:  ')
-unit2 = input('Which unit do you want it converted to: ')
+unit1 = input('First Unit Input:  ')
+unit2 = input('Second Unit Input: ')
 
 if unit1 == "cm" and unit2 == "m":
     ans = float(num1)/100
