@@ -36,9 +36,6 @@ def calculate_value(final_unit, num1):
 
     result = 0
 
-    if (final_unit == "m"):
-        return math.floor(num1)
-
     for key, value in units.items():
         if(key == final_unit):
             result = float(num1) / float(value)
